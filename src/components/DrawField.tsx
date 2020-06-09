@@ -7,7 +7,9 @@ interface Props {
 const DrawField: React.FC<Props> = ({ handleChange }) => {
   // const [canvasData, setCanvasData] = useState<string | null | undefined>();
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const settingsButtonRef = useRef<HTMLButtonElement>(null);
   const [clear, setClear] = useState<boolean | null | undefined>(false);
+  const [toggle, setToggle] = useState<boolean | null | undefined>(false);
 
   let drawing = false;
   let URL = "";
@@ -59,16 +61,48 @@ const DrawField: React.FC<Props> = ({ handleChange }) => {
     canvasRef.current.onpointermove = draw;
   }, [clear]);
 
+  const handleDone = (event) => {
+    console.log('sent');
+    setClear(!clear);
+  }
+
+  const handleToggle = () => {
+    const container = settingsButtonRef.current;
+    container.classList.toggle("change");
+    setToggle(!toggle);
+    console.log('toggle: ', toggle);
+  }
+
+
   return (
     <div style={{display: "flex", flexDirection: "column"}}>
+      {!toggle ? null :
+      <div className="blurDiv">
+        <div className="settingsMenu">
+          <p>MENU</p>
+        </div>
+      </div>
+      }
       <canvas id="canvas" ref={canvasRef} onChange={handleChange} />
-      <button className="clearButton"
+      <div style={{display: "flex", flexDirection: "row", width: "100%", justifyContent: "space-between"}}>
+        <button className="clearButton"
           onClick={() => {
             setClear(!clear);
           }}
         >
           Clear
         </button>
+        <button ref={settingsButtonRef} className="settingsButton" onClick={handleToggle}>
+          <div className="bar1"></div>
+          <div className="bar2"></div>
+          <div className="bar3"></div>
+        </button>
+        <button className="doneButton"
+          onClick={handleDone}
+        >
+          Done
+        </button>
+      </div>
     </div>
   );
 };
