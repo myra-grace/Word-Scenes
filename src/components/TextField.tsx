@@ -15,12 +15,16 @@ interface Props {
 
 const TextField: React.FC<Props> = () => {
     const [word, setWord] = useState<string | null | undefined>("Word");
-    const [text, setText] = useState<string | null | undefined>("Definition");
+    const [wordTranslated, setWordTranslated] = useState<string | null | undefined>("Word Translated");
+    const [exampeText, setExampleText] = useState<string | null | undefined>("Example");
+    const [translatedText, setTranslatedText] = useState<string | null | undefined>("Translated Example");
 
     return (
         <div style={{textAlign: "center"}}>
             <h1>{word}</h1>
-            <p>{text}</p>
+            <h2>{wordTranslated}</h2>
+            <h3>{exampeText}</h3>
+            <p>{translatedText}</p>
         </div>
     )
 }

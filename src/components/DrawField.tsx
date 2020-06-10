@@ -77,9 +77,15 @@ const DrawField: React.FC<Props> = ({ handleChange }) => {
   return (
     <div style={{display: "flex", flexDirection: "column"}}>
       {!toggle ? null :
-      <div className="blurDiv">
+      <div className="blurDivTwo">
         <div className="settingsMenu">
           <p>MENU</p>
+          {/* <div className="languageSelectionsFrom" style={{display: "flex", flexDirection: "column"}}>
+
+          </div>
+          <div className="languageSelectionsTo" style={{display: "flex", flexDirection: "column"}}>
+            
+          </div> */}
         </div>
       </div>
       }
