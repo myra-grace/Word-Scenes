@@ -1,0 +1,17 @@
+{
+  "version": "2.4.2",
+  "compilerOptions": {
+    "target": "es2016",                          
+    "module": "commonjs",  
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,                  
+    "experimentalDecorators": true,
+    "sourceMap": true,
+    "lib": ["es5", "es6", "ES2016", "ESNext.AsyncIterable"],
+    "esModuleInterop": true,
+    "skipLibCheck": true
+  },
+  "include": ["./src/**/*"],
+
+  "exclude": ["node_modules"]
+}

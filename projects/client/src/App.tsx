@@ -8,6 +8,12 @@ import DrawField from './components/DrawField';
 
 function App() {
   const [start, setStart] = useState<boolean | null | undefined>(false);
+  const [source, setSource] = useState<string | null | undefined>('fr');
+  const [target, setTarget] = useState<string | null | undefined>('en');
+
+  const handleStart = () => {
+    setStart(true);
+  }
   
   // interface ServerResponse {
   //   data: ServerData
@@ -20,44 +26,20 @@ function App() {
   //   Tsentence?: string;
   // }
 
-  // class Pingres {
-  //   word: string;
-  //   translation?: string;
-  //   sentence?: string;
-  //   Tsentence?: string;
-  //   constructor() {
-  //     // super();
-  //     this.word = 'word',
-  //     this.translation = 'translation',
-  //     this.sentence = 'sentence',
-  //     this.Tsentence = 'Tsentence'
-  //   }
-  // }
-
-
-
-  const handleStart = () => {
-    // axios.get("/").then(response => {
-    //   this.word = response.data,
-    //   this.translation = response.data,
-    //   this.sentence = response.data,
-    //   this.Tsentence = response.data
-    // })
-    setStart(true);
+  //SEND source AND target TO BACKEND
+  const sendBack = async() => {
+    const api_url = `/${source}/${target}`;
+    const response = await fetch(api_url);
+    const json = await response.json();
+    console.log('json: ', json);
   }
 
+  useEffect(() => {
+    console.log("UES EFFECT")
+    sendBack();
+  }, []);
 
-  // useEffect(() => {
-  //   fetch('')
-  //   .then((res) => res.json())
-  //   .then((json) => {
-  //     console.log('json: ', json);
-  //   })
-  //   .catch((error) => {
-  //     console.log('error: ', error);
-  //   });
-  // }, []);
-
+  // MAKE MENU COMPONENT
   return (
     <div className="App">
       {start ? null :
