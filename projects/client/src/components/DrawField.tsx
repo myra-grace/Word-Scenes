@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
+import Menu from "./Menu";
 
 interface Props {
   handleChange: (event: React.FormEvent<HTMLCanvasElement>) => void;
@@ -77,17 +78,7 @@ const DrawField: React.FC<Props> = ({ handleChange }) => {
   return (
     <div style={{display: "flex", flexDirection: "column"}}>
       {!toggle ? null :
-      <div className="blurDivTwo">
-        <div className="settingsMenu">
-          <p>MENU</p>
-          {/* <div className="languageSelectionsFrom" style={{display: "flex", flexDirection: "column"}}>
-
-          </div>
-          <div className="languageSelectionsTo" style={{display: "flex", flexDirection: "column"}}>
-            
-          </div> */}
-        </div>
-      </div>
+        <Menu />
       }
       <canvas id="canvas" ref={canvasRef} onChange={handleChange} />
       <div style={{display: "flex", flexDirection: "row", width: "100%", justifyContent: "space-between"}}>

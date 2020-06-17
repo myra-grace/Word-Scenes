@@ -4,42 +4,50 @@ import logo from './logo.svg';
 import './App.css';
 import TextField from './components/TextField';
 import DrawField from './components/DrawField';
+import { getDefaultNormalizer } from '@testing-library/react';
 
 
 function App() {
   const [start, setStart] = useState<boolean | null | undefined>(false);
   const [source, setSource] = useState<string | null | undefined>('fr');
   const [target, setTarget] = useState<string | null | undefined>('en');
+  const [word, setWord] = useState<string | null | undefined>();
+  const [translations, setTranslations] = useState<string | null | undefined>();
+  const [sentences, setSentences] = useState<string | null | undefined>();
+  const [translatedSentences, setTranslatedSentences] = useState<string | null | undefined>();
 
   const handleStart = () => {
     setStart(true);
+    
   }
   
-  // interface ServerResponse {
-  //   data: ServerData
-  // }
-
-  // interface ServerData {
-  //   word: string;
-  //   translation?: string;
-  //   sentence?: string;
-  //   Tsentence?: string;
-  // }
-
-  //SEND source AND target TO BACKEND
+  // SEND FIRST source AND FIRST target TO BACKEND
   const sendBack = async() => {
     const api_url = `/${source}/${target}`;
     const response = await fetch(api_url);
-    const json = await response.json();
-    console.log('json: ', json);
+    const data = await response.json();
+    // if (data.word === undefined || 
+    //   data.translations === undefined || 
+    //   data.sentences === undefined ||
+    //   data.translatedSentences === undefined) return
+    setWord(data.word);
+    setTranslations(data.translations);
+    setSentences(data.sentences);
+    setTranslatedSentences(data.translatedSentences);
   }
 
+  
   useEffect(() => {
-    console.log("UES EFFECT")
+    console.log('word: ', word);
+    console.log('translations: ', translations);
+    console.log('sentences: ', sentences);
+    console.log('translatedSentences: ', translatedSentences);
+  }, [word, translations, sentences, translatedSentences])
+
+  useEffect(() => {
     sendBack();
   }, []);
 
-  // MAKE MENU COMPONENT
   return (
     <div className="App">
       {start ? null :
@@ -47,7 +55,7 @@ function App() {
         <button className="startButton" style={{width: "90px"}} onClick={handleStart}>START</button>
       </div>
       }
-      <TextField text="text"/>
+      <TextField word={word} translations={translations} sentences={sentences} translatedSentences={translatedSentences} />
       <DrawField handleChange={e => {
         console.log("ON CHANGE");
       }}/>

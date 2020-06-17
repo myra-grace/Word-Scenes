@@ -1,11 +1,28 @@
 h1, h2, h3, p, div, button, body {
   margin: 0;
   padding: 0;
+  overflow: hidden;
+}
+
+h1 {
+  font-size: 2rem;
+}
+
+h2 {
+  font-size: 0.8rem;
+}
+
+h3 {
+  font-size: 0.6rem;
 }
 
 @media only screen and (min-width: 1081px) and (min-height: 1000px) {
   .App {
     font-size: 20px
+  }
+
+  .sentencesContainer {
+    width: 950;
   }
 
   #canvas {
@@ -24,6 +41,10 @@ h1, h2, h3, p, div, button, body {
     font-size: 18px
   }
 
+  .sentencesContainer {
+    width: 800px;
+  }
+
   #canvas {
     width: 800px;
     height: 800px;
@@ -38,6 +59,10 @@ h1, h2, h3, p, div, button, body {
   @media only screen and (max-width: 1000px) and (min-height: 800px) {
     .App {
       font-size: 16px
+    }
+
+    .sentencesContainer {
+      width: 650px;
     }
     
     #canvas {
@@ -56,6 +81,10 @@ h1, h2, h3, p, div, button, body {
       font-size: 14px
     }
 
+    .sentencesContainer {
+      width: 500px;
+    }
+
     #canvas {
       width: 500px;
       height: 500px;
@@ -70,6 +99,10 @@ h1, h2, h3, p, div, button, body {
   @media only screen and (min-width: 800px) {
     .App {
       font-size: 14px
+    }
+
+    .sentencesContainer {
+      width: 500px;
     }
 
     #canvas {
@@ -88,6 +121,10 @@ h1, h2, h3, p, div, button, body {
       font-size: 12px
     }
 
+    .sentencesContainer {
+      width: 350px;
+    }
+
     #canvas {
       width: 350px;
       height: 350px;
@@ -102,6 +139,10 @@ h1, h2, h3, p, div, button, body {
   @media only screen and (max-width: 320px) and (min-height: 500px) {
     .App {
       font-size: 10px
+    }
+
+    .sentencesContainer {
+      width: 300px;
     }
 
     #canvas {
@@ -165,12 +206,54 @@ h1, h2, h3, p, div, button, body {
   z-index: 1;
 }
 
+.sentencesContainer {
+  display: flex; 
+  flex-direction: row; 
+  justify-content: space-between;
+}
+
+.sentences {
+  width: 100%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.translations {
+  animation: scroll-left 20s linear infinite;
+  overflow: hidden;
+  white-space: nowrap;  
+}
+
+@keyframes scroll-left {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
 .settingsMenu, .languageSelectionsFrom, .languageSelectionsTo {
+  width: 100%;
   text-align: center;
   display: flex;
   flex-direction: column;
   overflow-y: auto;
   overflow-anchor: none;
+  white-space: nowrap;
+}
+
+.translations::-webkit-scrollbar {
+  width: 0;
+  display: none;
+}
+
+.sentences::-webkit-scrollbar {
+  width: 0;
+  display: none;
 }
 
 .settingsMenu::-webkit-scrollbar {
@@ -186,7 +269,7 @@ h1, h2, h3, p, div, button, body {
   display: none;
 }
 
-.startButton, .clearButton, .doneButton {
+.startButton, .clearButton, .doneButton, .switchButton {
   cursor:pointer;
   width: 40%;
   margin: 10px;
@@ -203,6 +286,14 @@ h1, h2, h3, p, div, button, body {
   border: none;
   background-color: transparent;
   z-index: 5;
+}
+
+.backButton, .nextButton {
+  cursor:pointer;
+  margin: 0 10px;
+  border: none;
+  background-color: transparent;
+  color: black;
 }
 
 .bar1, .bar2, .bar3 {
