@@ -236,6 +236,11 @@ h3 {
   }
 }
 
+.languageSelections {
+  display: flex;
+  flex-direction: column;
+}
+
 .settingsMenu, .languageSelectionsFrom, .languageSelectionsTo {
   width: 100%;
   text-align: center;

@@ -1,4 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
+import { useSelector, useDispatch } from 'react-redux';
+import { wordAdded } from '../actions';
+
 
 interface Props {
   word;
@@ -8,14 +11,16 @@ interface Props {
 }
 
 const TextField: React.FC<Props> = (props) => {
-  console.log("props TEXTFIELD: ", props);
   const [word, setWord] = useState<string | null | undefined>();
-  const [translations, setTranslations] = useState<any | null | undefined>();
-  const [sentences, setSentences] = useState<any | null | undefined>();
-  const [translatedSentences, setTranslatedSentences] = useState<
-    any | null | undefined
-  >();
+  const [translations, setTranslations] = useState<string[] | null | undefined>();
+  const [sentences, setSentences] = useState<string[] | null | undefined>();
+  const [translatedSentences, setTranslatedSentences] = useState<string | null | undefined>();
   const [count, setCount] = useState<number | null>(0);
+  const dispatch = useDispatch();
+
+  const source = useSelector(state => state.generalReducer.source);
+  const target = useSelector(state => state.generalReducer.target);
+  const words = useSelector(state => state.generalReducer.words);
 
   useEffect(() => {
     if (
@@ -32,13 +37,20 @@ const TextField: React.FC<Props> = (props) => {
   }, [props]);
 
   const minusCount = () => {
-    if (count === 0) return;
-    setCount(count - 1);
+    if (count === 0) {
+      setCount(sentences.length -1);
+    } else {
+      setCount(count - 1);
+    }
   };
 
   const plusCount = () => {
-    if (count === translatedSentences.length - 1) return;
-    setCount(count + 1);
+    if (count === sentences.length - 1) {
+      setCount(0);
+    } else {
+      setCount(count + 1);
+    }
+    
   };
 
   if (

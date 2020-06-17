@@ -1,5 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
+import { useSelector, useDispatch } from 'react-redux';
 import Menu from "./Menu";
+import { illustrationAdded, submit } from '../actions';
 
 interface Props {
   handleChange: (event: React.FormEvent<HTMLCanvasElement>) => void;
@@ -11,9 +13,13 @@ const DrawField: React.FC<Props> = ({ handleChange }) => {
   const settingsButtonRef = useRef<HTMLButtonElement>(null);
   const [clear, setClear] = useState<boolean | null | undefined>(false);
   const [toggle, setToggle] = useState<boolean | null | undefined>(false);
+  const [url, setUrl] = useState<string | null | undefined>();
+  const dispatch = useDispatch();
 
-  let drawing = false;
-  let URL = "";
+  const illustrations = useSelector(state => state.generalReducer.illustrations);
+  const submited = useSelector(state => state.generalReducer.submitions);
+
+  let drawing:boolean = false;
 
   useEffect(() => {
     const context = canvasRef.current.getContext("2d");
@@ -42,8 +48,7 @@ const DrawField: React.FC<Props> = ({ handleChange }) => {
       event.preventDefault();
       drawing = false;
       context.beginPath();
-      URL = canvasRef.current.toDataURL();
-    //   dispatch(storeInputDAS(URL));
+      setUrl(canvasRef.current.toDataURL());
     };
 
     if (clear === true) {
@@ -63,7 +68,10 @@ const DrawField: React.FC<Props> = ({ handleChange }) => {
   }, [clear]);
 
   const handleDone = (event) => {
+    event.preventDefault();
     console.log('sent');
+    dispatch(illustrationAdded(url))
+    dispatch(submit(submited +1))
     setClear(!clear);
   }
 

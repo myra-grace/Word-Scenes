@@ -6,27 +6,32 @@ require('dotenv').config();
 const PORT = 4000;
 const bodyParser = require('body-parser');
 
-let input = 'quand';
+let input = 'chat';
 //-------------------------------------
+
+// const availableLangs = async(req, res) => {
+//     console.log('LANGUAGES?');
+//     const api_url = `https://systran-systran-platform-for-language-processing-v1.p.rapidapi.com/translation/supportedLanguages`;
+//     const response = await rp(api_url, { headers: {
+//         'x-rapidapi-key': process.env.RAPID_API_KEY
+//     }});
+    
+//     let unpack = JSON.parse(response)
+//     console.log('unpack: ', unpack);
+// }
 
 // grab a random word (another API)
 // if no match, do it again
 
-const apiPinger = async(req, res) => {
-    console.log('API PINGER');
+const apiWordPinger = async(req, res) => {
     let source = req.params.source;
     let target = req.params.target;
-    // if (source === undefined && target === undefined) {
-    //     source = 'fr';
-    //     target = 'en';
-    // }
     const api_url = `https://systran-systran-platform-for-language-processing-v1.p.rapidapi.com/resources/dictionary/lookup?source=${source}&target=${target}&input=${input}`;
     const response = await rp(api_url, { headers: {
         'x-rapidapi-key': process.env.RAPID_API_KEY
     }});
     
     let unpack = JSON.parse(response).outputs[0].output.matches;
-    console.log('**unpack** ', unpack);
     let word = unpack[0].source.lemma;
     let translations = [];
     let sentences = [];
@@ -77,7 +82,8 @@ express()
     .use('/', express.static(__dirname + '/'))
 
 // GET SETTINGS FROM FRONT END
-.get(`/:source/:target`, apiPinger)
+.get(`/:source/:target`, apiWordPinger)
+// .get(`/`, availableLangs)
 
 .listen(PORT, (error) => {
     if (error) {

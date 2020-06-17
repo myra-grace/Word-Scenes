@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import axios from 'axios';
 import logo from './logo.svg';
 import './App.css';
@@ -9,12 +10,15 @@ import { getDefaultNormalizer } from '@testing-library/react';
 
 function App() {
   const [start, setStart] = useState<boolean | null | undefined>(false);
-  const [source, setSource] = useState<string | null | undefined>('fr');
-  const [target, setTarget] = useState<string | null | undefined>('en');
   const [word, setWord] = useState<string | null | undefined>();
   const [translations, setTranslations] = useState<string | null | undefined>();
   const [sentences, setSentences] = useState<string | null | undefined>();
   const [translatedSentences, setTranslatedSentences] = useState<string | null | undefined>();
+
+  const source = useSelector(state => state.generalReducer.source);
+  const target = useSelector(state => state.generalReducer.target);
+  const words = useSelector(state => state.generalReducer.words);
+  const illustrations = useSelector(state => state.generalReducer.illustrations);
 
   const handleStart = () => {
     setStart(true);
@@ -46,7 +50,7 @@ function App() {
 
   useEffect(() => {
     sendBack();
-  }, []);
+  }, [source, target]);
 
   return (
     <div className="App">
