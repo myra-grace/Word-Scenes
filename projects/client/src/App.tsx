@@ -11,8 +11,8 @@ import { getDefaultNormalizer } from '@testing-library/react';
 function App() {
   const [start, setStart] = useState<boolean | null | undefined>(false);
   const [word, setWord] = useState<string | null | undefined>();
-  const [translations, setTranslations] = useState<string | null | undefined>();
-  const [sentences, setSentences] = useState<string | null | undefined>();
+  const [translations, setTranslations] = useState<string[] | null | undefined>();
+  const [sentences, setSentences] = useState<string[] | null | undefined>();
   const [translatedSentences, setTranslatedSentences] = useState<string | null | undefined>();
 
   const source = useSelector(state => state.generalReducer.source);
@@ -41,12 +41,12 @@ function App() {
   }
 
   
-  useEffect(() => {
-    console.log('word: ', word);
-    console.log('translations: ', translations);
-    console.log('sentences: ', sentences);
-    console.log('translatedSentences: ', translatedSentences);
-  }, [word, translations, sentences, translatedSentences])
+  // useEffect(() => {
+  //   console.log('word: ', word);
+  //   console.log('translations: ', translations);
+  //   console.log('sentences: ', sentences);
+  //   console.log('translatedSentences: ', translatedSentences);
+  // }, [word, translations, sentences, translatedSentences])
 
   useEffect(() => {
     sendBack();

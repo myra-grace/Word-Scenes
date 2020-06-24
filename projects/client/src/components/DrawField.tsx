@@ -69,7 +69,6 @@ const DrawField: React.FC<Props> = ({ handleChange }) => {
 
   const handleDone = (event) => {
     event.preventDefault();
-    console.log('sent');
     dispatch(illustrationAdded(url))
     dispatch(submit(submited +1))
     setClear(!clear);
@@ -79,7 +78,6 @@ const DrawField: React.FC<Props> = ({ handleChange }) => {
     const container = settingsButtonRef.current;
     container.classList.toggle("change");
     setToggle(!toggle);
-    console.log('toggle: ', toggle);
   }
 
 

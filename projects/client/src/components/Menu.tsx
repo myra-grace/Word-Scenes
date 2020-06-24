@@ -29,12 +29,13 @@ const Menu = () => {
                 
                 <form className="languageSelections">
                     <select onChange={handleSourceSelector} className="languageSelectionsFrom">
-                        <option value="en">English</option>
                         <option value="fr">French</option>
+                        <option value="en">English</option>
                         <option value="it">Italian</option>
                         <option value="ru">Russian</option>
                         <option value="es">Spanish</option>
                     </select>
+                    <h2>➡</h2>
                     <select onChange={handleTargetSelector} className="languageSelectionsTo">
                         <option value="en">English</option>
                         <option value="fr">French</option>

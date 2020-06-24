@@ -4,9 +4,9 @@ import { wordAdded } from '../actions';
 
 
 interface Props {
-  word;
-  translations;
-  sentences;
+  word: string;
+  translations: string[];
+  sentences: string[];
   translatedSentences: string;
 }
 
