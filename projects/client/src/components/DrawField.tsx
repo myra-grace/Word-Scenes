@@ -30,7 +30,7 @@ const DrawField: React.FC<Props> = ({ handleChange }) => {
       context.lineCap = "round";
       context.strokeStyle = "#D6EAFF";
       context.shadowColor = "dodgerblue";
-      context.shadowBlur = 20;
+      context.shadowBlur = 10;
       context.lineTo(event.offsetX, event.offsetY);
       context.stroke();
       context.beginPath();
