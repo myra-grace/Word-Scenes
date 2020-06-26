@@ -4,7 +4,7 @@ Drawing a scene is a tried a true way to enhance memory! It's derived from the L
 ## Phone Compatibility
 ![til](assets/Livraison.png)
 ## Change Language
-![til](assets\Menu.png)
+![til](./assets/Menu.png)
 ## Scrolling Translations
 ![til](./assets/AVOIRezgif.com-video-to-gif.gif)
 ## Draw for Better Memory
