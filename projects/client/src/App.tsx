@@ -19,10 +19,10 @@ function App() {
   const target = useSelector(state => state.generalReducer.target);
   const words = useSelector(state => state.generalReducer.words);
   const illustrations = useSelector(state => state.generalReducer.illustrations);
+  const submited = useSelector(state => state.generalReducer.submitions);
 
   const handleStart = () => {
     setStart(true);
-    
   }
   
   // SEND FIRST source AND FIRST target TO BACKEND
@@ -50,7 +50,7 @@ function App() {
 
   useEffect(() => {
     sendBack();
-  }, [source, target]);
+  }, [source, target, submited]);
 
   return (
     <div className="App">
