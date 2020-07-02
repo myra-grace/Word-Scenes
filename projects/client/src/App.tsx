@@ -54,6 +54,7 @@ function App() {
 
   return (
     <div className="App">
+      <title>{word}</title>
       {start ? null :
       <div className="blurDivOne">
         <button className="startButton" style={{width: "90px"}} onClick={handleStart}>START</button>

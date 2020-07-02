@@ -66,20 +66,22 @@ const TextField: React.FC<Props> = (props) => {
   }
 
   return (
-    <div className="txtdiv" style={{ textAlign: "center" }}>
+    <div className="txtdiv">
       <h1>{word.toUpperCase()}</h1>
       <h2 className="translations">{"( " + translations.join(", ") + " )"}</h2>
       <div className="sentencesContainer">
-        <button className="backButton" onClick={minusCount}>
-          ◀
-        </button>
-        <div className="sentences">
-          <h3>{sentences[count]}</h3>
-          <p>( {translatedSentences[count]} )</p>
+        <div className="sentencesInnerContainer">
+          <button className="backButton" onClick={minusCount}>
+            ◀
+          </button>
+          <div className="sentences">
+            <h3>{sentences[count]}</h3>
+            <p>( {translatedSentences[count]} )</p>
+          </div>
+          <button className="nextButton" onClick={plusCount}>
+            ▶
+          </button>
         </div>
-        <button className="nextButton" onClick={plusCount}>
-          ▶
-        </button>
       </div>
     </div>
   );

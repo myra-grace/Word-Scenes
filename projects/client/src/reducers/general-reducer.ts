@@ -6,8 +6,6 @@ const initialState = {
     illustrations:<string[]> [],
 }
 
-// it(italian), es(spanish), ru(russian),
-
 const generalReducer = (state = initialState, action) => {
     switch (action.type) {
         case 'SUBMIT': {

@@ -1,24 +1,24 @@
-export const submit = (submitions) => ({
+export const submit = (submitions: string) => ({
     type: 'SUBMIT',
     submitions,
 })
 
-export const sourceSelection = (source) => ({
+export const sourceSelection = (source: string) => ({
     type: 'SOURCE_SELECTION',
     source,
 })
 
-export const targetSelection = (target) => ({
+export const targetSelection = (target: string) => ({
     type: 'TARGET_SELECTION',
     target,
 })
 
-export const wordAdded = (word) => ({
+export const wordAdded = (word: string) => ({
     type: 'WORD_ADDED',
     word,
 })
 
-export const illustrationAdded = (illustrations) => ({
+export const illustrationAdded = (illustrations: string) => ({
     type: 'ILLUSTRATION_ADDED',
     illustrations,
 })
