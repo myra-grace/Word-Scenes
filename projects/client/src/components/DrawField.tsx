@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import Menu from "./Menu";
 import { illustrationAdded, submit } from '../actions';
 
+
 interface Props {
   handleChange: (event: React.FormEvent<HTMLCanvasElement>) => void;
 }
@@ -17,60 +18,68 @@ const DrawField: React.FC<Props> = ({ handleChange }) => {
   const dispatch = useDispatch();
 
   const illustrations = useSelector(state => state.generalReducer.illustrations);
-  const submited = useSelector(state => state.generalReducer.submitions);
+  const submitted = useSelector(state => state.generalReducer.submitions);
+
+  let CANVAS_SIZE = [];
+  let windowW = window.innerWidth - 50;
+  let windowH = window.innerHeight - 200;
+  if (windowW > windowH) {
+    CANVAS_SIZE = [windowH, windowH];
+  } else {
+    CANVAS_SIZE = [windowW, windowW];
+  }
+  
 
   let drawing:boolean = false;
 
   useEffect(() => {
-    const context = canvasRef.current.getContext("2d");
+    const context = canvasRef.current.getContext('2d');
 
-    const draw = (event) => {
-      if (!drawing) return;
-      context.lineWidth = 2;
-      context.lineCap = "round";
-      context.strokeStyle = "#D6EAFF";
-      context.shadowColor = "dodgerblue";
-      context.shadowBlur = 10;
-      context.lineTo(event.offsetX, event.offsetY);
-      context.stroke();
-      context.beginPath();
-      context.moveTo(event.offsetX, event.offsetY);
-      context.imageSmoothingQuality = "high";
-    };
+        const draw = (event) => {
+            if (!drawing) return;
+            context.lineWidth = 5;
+            context.lineCap = "round";
+            context.strokeStyle = '#D6EAFF';
+            context.shadowColor = 'dodgerblue';
+            context.shadowBlur = 20;
+            context.lineTo(event.offsetX, event.offsetY);
+            context.stroke();
+            context.beginPath();
+            context.moveTo(event.offsetX, event.offsetY);
+            context.imageSmoothingQuality = "high";
+        }
 
-    const start = (event) => {
-      event.preventDefault();
-      drawing = true;
-      draw(event);
-    };
+        const start = (event) => {
+            event.preventDefault();
+            drawing = true;
+        }
 
-    const stop = (event) => {
-      event.preventDefault();
-      drawing = false;
-      context.beginPath();
-      setUrl(canvasRef.current.toDataURL());
-    };
+        const stop = (event) => {
+            event.preventDefault();
+            drawing = false;
+            context.beginPath();
+            setUrl(canvasRef.current.toDataURL());
+        }
 
-    if (clear === true) {
-      context.clearRect(
-        0,
-        0,
-        canvasRef.current.width,
-        canvasRef.current.height
-      );
-      context.beginPath();
-      setClear(!clear);
-    }
+        if (clear === true) {
+            context.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
+            context.beginPath();
+            setClear(!clear);
+        }
 
-    canvasRef.current.onpointerdown = start;
-    canvasRef.current.onpointerup = stop;
-    canvasRef.current.onpointermove = draw;
+        canvasRef.current.onpointerdown = start;
+        canvasRef.current.onpointermove = draw;
+        canvasRef.current.onpointerup = stop;
+
+        canvasRef.current.ontouchstart = start;
+        canvasRef.current.ontouchmove = draw;
+        canvasRef.current.ontouchend = stop;
   }, [clear]);
 
   const handleDone = (event) => {
     event.preventDefault();
     dispatch(illustrationAdded(url))
-    dispatch(submit(submited +1))
+    dispatch(submit(submitted +1))
     setClear(!clear);
   }
 
@@ -82,11 +91,13 @@ const DrawField: React.FC<Props> = ({ handleChange }) => {
 
 
   return (
-    <div style={{display: "flex", flexDirection: "column"}}>
+    <div id="canvaswrapper" style={{width: "auto", height: "auto", display: "flex", flexDirection: "column"}}>
       {!toggle ? null :
         <Menu />
       }
-      <canvas id="canvas" ref={canvasRef} onChange={handleChange} />
+      <canvas id="canvas" ref={canvasRef} onChange={handleChange}
+      width={`${CANVAS_SIZE[0]}px`}
+      height={`${CANVAS_SIZE[1]}px`}/>
       <div style={{display: "flex", flexDirection: "row", width: "100%", justifyContent: "space-between"}}>
         <button className="clearButton"
           onClick={() => {

@@ -25,10 +25,10 @@ h3 {
     width: 950;
   }
 
-  #canvas {
+  /* #canvas {
     width: 950px;
     height: 950px;
-  }
+  } */
 
   .settingsMenu {
     max-width: 700px;
@@ -45,10 +45,10 @@ h3 {
     width: 800px;
   }
 
-  #canvas {
+  /* #canvas {
     width: 800px;
     height: 800px;
-  }
+  } */
 
   .settingsMenu {
     max-width: 650px;
@@ -65,10 +65,10 @@ h3 {
       width: 650px;
     }
     
-    #canvas {
+    /* #canvas {
       width: 650px;
       height: 650px;
-    }
+    } */
 
     .settingsMenu {
       max-width: 500px;
@@ -85,10 +85,10 @@ h3 {
       width: 500px;
     }
 
-    #canvas {
+    /* #canvas {
       width: 500px;
       height: 500px;
-    }
+    } */
 
     .settingsMenu {
       max-width: 350px;
@@ -105,10 +105,10 @@ h3 {
       width: 500px;
     }
 
-    #canvas {
+    /* #canvas {
       width: 500px;
       height: 500px;
-    }
+    } */
 
     .settingsMenu {
       max-width: 350px;
@@ -125,10 +125,10 @@ h3 {
       width: 350px;
     }
 
-    #canvas {
+    /* #canvas {
       width: 350px;
       height: 350px;
-    }
+    } */
 
     .settingsMenu {
       max-width: 200px;
@@ -145,10 +145,10 @@ h3 {
       width: 300px;
     }
 
-    #canvas {
+    /* #canvas {
       width: 300px;
       height: 300px;
-    }
+    } */
 
     .settingsMenu {
       max-width: 150px;

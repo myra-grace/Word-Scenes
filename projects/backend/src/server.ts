@@ -143,7 +143,6 @@ express()
     );
     next();
   })
-  // .use(morgan('tiny'))
   .use(express.static("public"))
   .use(bodyParser.json())
   .use(express.urlencoded({ extended: false }))
