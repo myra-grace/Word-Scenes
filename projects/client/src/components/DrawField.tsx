@@ -1,19 +1,20 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useSelector, useDispatch } from 'react-redux';
-import Menu from "./Menu";
 import { illustrationAdded, submit } from '../actions';
 
 
 interface Props {
-  handleChange: (event: React.FormEvent<HTMLCanvasElement>) => void;
+  word: string;
+  clear: boolean;
+  done: boolean;
+  urlGuess: object;
 }
 
-const DrawField: React.FC<Props> = ({ handleChange }) => {
-  // const [canvasData, setCanvasData] = useState<string | null | undefined>();
+const DrawField: React.FC<Props> = (props) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const settingsButtonRef = useRef<HTMLButtonElement>(null);
   const [clear, setClear] = useState<boolean | null | undefined>(false);
-  const [toggle, setToggle] = useState<boolean | null | undefined>(false);
+  const [done, setDone] = useState<boolean | null | undefined>(false);
   const [url, setUrl] = useState<string | null | undefined>();
   const dispatch = useDispatch();
 
@@ -31,6 +32,10 @@ const DrawField: React.FC<Props> = ({ handleChange }) => {
   
 
   let drawing:boolean = false;
+
+  useEffect(() => {
+    setClear(!clear);
+  }, [props.clear])
 
   useEffect(() => {
     const context = canvasRef.current.getContext('2d');
@@ -76,47 +81,28 @@ const DrawField: React.FC<Props> = ({ handleChange }) => {
         canvasRef.current.ontouchend = stop;
   }, [clear]);
 
-  const handleDone = (event) => {
-    event.preventDefault();
-    dispatch(illustrationAdded(url))
-    dispatch(submit(submitted +1))
+  useEffect(() => {
+    if (props.done === false) return
+    dispatch(illustrationAdded({[props.word]: url}));
+    dispatch(submit(submitted +1));
     setClear(!clear);
-  }
+  }, [props.done])
 
-  const handleToggle = () => {
-    const container = settingsButtonRef.current;
-    container.classList.toggle("change");
-    setToggle(!toggle);
-  }
-
+  useEffect(() => {
+    let urlString = Object.values(props.urlGuess);
+    const context = canvasRef.current.getContext("2d");
+    let img = new Image();
+    img.onload = () => {
+      context.drawImage(img, 0, 0);
+    };
+    img.src = urlString.toString();
+  }, [props.urlGuess]);
 
   return (
     <div id="canvaswrapper" style={{width: "auto", height: "auto", display: "flex", flexDirection: "column"}}>
-      {!toggle ? null :
-        <Menu />
-      }
-      <canvas id="canvas" ref={canvasRef} onChange={handleChange}
+      <canvas id="canvas" ref={canvasRef}
       width={`${CANVAS_SIZE[0]}px`}
       height={`${CANVAS_SIZE[1]}px`}/>
-      <div style={{display: "flex", flexDirection: "row", width: "100%", justifyContent: "space-between"}}>
-        <button className="clearButton"
-          onClick={() => {
-            setClear(!clear);
-          }}
-        >
-          Clear
-        </button>
-        <button ref={settingsButtonRef} className="settingsButton" onClick={handleToggle}>
-          <div className="bar1"></div>
-          <div className="bar2"></div>
-          <div className="bar3"></div>
-        </button>
-        <button className="doneButton"
-          onClick={handleDone}
-        >
-          Done
-        </button>
-      </div>
     </div>
   );
 };

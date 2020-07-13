@@ -1,3 +1,5 @@
+import { Illustration } from "./models/Illustration"
+
 export const submit = (submitions: string) => ({
     type: 'SUBMIT',
     submitions,
@@ -13,12 +15,7 @@ export const targetSelection = (target: string) => ({
     target,
 })
 
-export const wordAdded = (word: string) => ({
-    type: 'WORD_ADDED',
-    word,
-})
-
-export const illustrationAdded = (illustrations: string) => ({
+export const illustrationAdded = (illustration: Illustration) => ({
     type: 'ILLUSTRATION_ADDED',
-    illustrations,
+    illustration,
 })

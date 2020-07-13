@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useSelector, useDispatch } from 'react-redux';
-import { wordAdded } from '../actions';
+import { useSelector } from 'react-redux';
 
 
 interface Props {
@@ -16,11 +15,6 @@ const TextField: React.FC<Props> = (props) => {
   const [sentences, setSentences] = useState<string[] | null | undefined>();
   const [translatedSentences, setTranslatedSentences] = useState<string | null | undefined>();
   const [count, setCount] = useState<number | null>(0);
-  const dispatch = useDispatch();
-
-  const source = useSelector(state => state.generalReducer.source);
-  const target = useSelector(state => state.generalReducer.target);
-  const words = useSelector(state => state.generalReducer.words);
 
   useEffect(() => {
     if (

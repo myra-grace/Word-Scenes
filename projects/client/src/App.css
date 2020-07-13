@@ -174,7 +174,7 @@ h3 {
   border: 1px solid magenta;
 }
 
-.blurDivOne, .blurDivTwo {
+.blurDivOne, .blurdiv2 {
   width: 98vw;
   height: 98vh;
   backdrop-filter: blur(5px);
@@ -187,9 +187,37 @@ h3 {
   z-index: 1;
 
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
+}
+
+.blurDivOne span {
+  width: 15px;
+  height: 15px;
+  margin: 0 5px;
+  background-color: lightslategrey;
+  border-radius: 50%;
+
+  animation-name: dots;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+}
+
+.blurDivOne span:nth-child(2) {
+  animation-delay: 0.4s;
+}
+
+.blurDivOne span:nth-child(3) {
+  animation-delay: 0.8s;
+}
+
+@keyframes dots {
+  50% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
 }
 
 .settingsMenu {
@@ -217,7 +245,7 @@ h3 {
   justify-content: center;
 }
 
-.sentencesInnerContainer {
+.sentencesInnerContainer, .guessform {
   display: flex; 
   flex-direction: row; 
   justify-content: space-between;
@@ -285,10 +313,10 @@ h3 {
   display: none;
 }
 
-.startButton, .clearButton, .doneButton, .switchButton {
+.clearButton, .doneButton {
   cursor:pointer;
   width: 40%;
-  margin: 10px;
+  margin: 10px 0;
   border-radius: 4px;
   border: none;
   padding: 5px 20px;
@@ -298,13 +326,28 @@ h3 {
 
 .settingsButton {
   cursor:pointer;
-  margin: 8px;
+  margin: 8px 10px;
   border: none;
   background-color: transparent;
   z-index: 5;
 }
 
-.backButton, .nextButton {
+.guessform {
+  background-color: magenta;
+  border: 2px solid magenta;
+  border-radius: 5px;
+}
+
+.guessinput {
+  text-align: center;
+  height: 25px;
+  color: #1e2329;
+  background-color: white;
+  border: 2px solid white;
+  border-radius: 5px 0 0 5px;
+}
+
+.backButton, .nextButton, .checkguess {
   cursor:pointer;
   margin: 0 10px;
   border: none;

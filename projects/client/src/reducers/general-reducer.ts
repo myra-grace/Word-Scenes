@@ -2,8 +2,7 @@ const initialState = {
     submitions:<number> 0,
     source:<string> "fr",
     target:<string> "en",
-    words:<string[]> [],
-    illustrations:<string[]> [],
+    illustrations: [],
 }
 
 const generalReducer = (state = initialState, action) => {
@@ -29,17 +28,10 @@ const generalReducer = (state = initialState, action) => {
             };
         }
 
-        case 'WORD_ADDED': {
-            return {
-                ...state,
-                words: action.words,
-            };
-        }
-
         case 'ILLUSTRATION_ADDED': {
             return {
                 ...state,
-                illustrations: [...state.illustrations, action.illustrations],
+                illustrations: [...state.illustrations, action.illustration],
             };
         }
     
