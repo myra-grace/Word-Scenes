@@ -1,7 +1,7 @@
 # Word Scenes
 Want to expand your vocabulary? Drawing a scene is a tried a true way to enhance memory! It's derived from the Link Memory Method.
 
-Let's say you want to build your French vocabulary and you are a native English speaker. The app will fetch two things: a random French word with English translation & a French sentece with that word and English translation. The point is to draw a scene related to that word or sentence then submit it. Every once in a while, the app will trow the illustration back to you asking what word was associated with it.
+Let's say you want to build your French vocabulary and you are a native English speaker. The app will fetch two things: a random French word with English translation & a French sentence with that word and English translation. The point is to draw a scene related to that word or sentence then submit it. Every once in a while, the app will throw the illustration back to you asking what word was associated with it.
 
 ## Prerequisites
 Before you begin, ensure you have the following:
