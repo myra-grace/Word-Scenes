@@ -7,9 +7,12 @@ Let's say you want to build your French vocabulary and you are a native English 
 Before you begin, ensure you have the following:
 * Internet connection
 
-## Installing Word Scenes
+## Getting Started
 To install Word Scenes, follow these steps:
-Windows:
+<!-- Windows: FOR DOWNLOAD TO LOCAL 
+1. <npm install> 
+
+After following these steps run "yarn start"-->
 
 ## Using Word Scenes
 To use Word Scenes, follow these steps:

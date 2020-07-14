@@ -1,5 +1,6 @@
 import express, { request } from "express";
 import rp from "request-promise";
+import { maxHeaderSize } from "http";
 
 require("dotenv").config();
 
@@ -7,33 +8,20 @@ const PORT = 4000;
 const bodyParser = require("body-parser");
 //-------------------------------------
 
-const apiRandomWordPinger = async (source: string) => {
-  let output = "chat"; //FOR TESTING
-  // let output = "";
-  // let options = {
-  //   method: "GET",
-  //   url: "https://random-words2.p.rapidapi.com/words",
-  //   qs: { limit: "10", lang: source },
-  //   headers: {
-  //     "x-rapidapi-host": "random-words2.p.rapidapi.com",
-  //     "x-rapidapi-key": process.env.RAPID_API_KEY,
-  //   },
-  // };
+const apiRandomWordPinger = async ():Promise<string[]> => {
+  let output: string[] = [];
 
-  // await rp(options, function (error, response, body) {
-  //   if (error) throw new Error(error);
+  let options = {
+    method: "GET",
+    url: "https://random-word-api.herokuapp.com/word?number=20",
+  };
 
-  //   let unpack = JSON.parse(body);
-  //   let words = unpack.words;
-  //   for (const word of words) {
-  //       if (word.includes(' ')) {
-  //           continue
-  //       } else {
-  //           output = word;
-  //       }
-  //   }
-  // });
-  
+  await rp(options, function (error, response, body) {
+    if (error) throw new Error(error);
+    output = JSON.parse(body)
+  })
+
+  console.log('output: ', typeof output);
   return output;
 };
 
@@ -84,50 +72,50 @@ const apiWordPinger = async (source: string, target: string, input: string) => {
 };
 
 const sourceTargetCleaner = async (req, res) => {
-  let run4wordCount = 0;
-  let runCount = 6;
-  let word = "";
+  let wordsArray:string[] = await apiRandomWordPinger();
+  console.log('*********', wordsArray);
   
   let source = req.params.source;
-  console.log('source: ', source);
   let target = req.params.target;
-  console.log('target: ', target);
 
-  if (source !== 'fr') {
-    while (run4wordCount <= 5) {
-      try {
-        let preWord = await apiRandomWordPinger('fr');
-        let wordPackage = await apiWordPinger('fr', source, preWord);
+  console.log('wordsArray: ', typeof wordsArray);
+
+  if (source !== 'en') {
+    try {
+    wordsArray.map(async (wrd:string) => {
+        console.log('IN FOREACH');
+        let wordPackage = await apiWordPinger('en', source, wrd);
         if (wordPackage !== undefined) {
-          word = wordPackage.word;
-          run4wordCount = 6
-          runCount = 0;
+        let wholePackage = await apiWordPinger(source, target, wordPackage.word);
+        if (wholePackage !== undefined) {
+            res.send(wholePackage);
         } else {
-          run4wordCount += 1;
+            console.log('looking for a word...');
         }
-      } catch (error) {
-        console.log('error', error);
-      }
+        return
+        } else {
+            console.log('no word matched');
+        }
+        });
+    } catch (error) {
+    console.log('error', error);
     }
   } else {
-    word = await apiRandomWordPinger(source);
-    runCount = 0;
-  }
-
-  while(runCount <= 5) {
     try {
-      let wholePackage = await apiWordPinger(source, target, word);
-      if (wholePackage !== undefined) {
-        res.send(wholePackage);
-        runCount = 6;
-      } else {
-        run4wordCount = 0;
-        runCount = 6;
-      }
+      wordsArray.map(async (wrd) => {
+        let wordPackage = await apiWordPinger(source, target, wrd);
+        if (wordPackage !== undefined) {
+          res.send(wordPackage);
+          return
+        } else {
+          console.log('no word matched');
+        }
+        });
     } catch (error) {
       console.log('error', error);
     }
   }
+
   return
 };
 
