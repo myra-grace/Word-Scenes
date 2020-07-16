@@ -13,7 +13,7 @@ const apiRandomWordPinger = async ():Promise<string[]> => {
 
   let options = {
     method: "GET",
-    url: "https://random-word-api.herokuapp.com/word?number=20",
+    url: "https://random-word-api.herokuapp.com/word?number=10",
   };
 
   await rp(options, function (error, response, body) {
@@ -72,6 +72,7 @@ const apiWordPinger = async (source: string, target: string, input: string) => {
 };
 
 const sourceTargetCleaner = async (req, res) => {
+  let wasSuccessful = false
   let wordsArray:string[] = await apiRandomWordPinger();
   console.log('*********', wordsArray);
   
@@ -81,42 +82,42 @@ const sourceTargetCleaner = async (req, res) => {
   console.log('wordsArray: ', typeof wordsArray);
 
   if (source !== 'en') {
-    try {
-    wordsArray.map(async (wrd:string) => {
-        console.log('IN FOREACH');
+    for (const wrd of wordsArray) {
+      try {
         let wordPackage = await apiWordPinger('en', source, wrd);
         if (wordPackage !== undefined) {
-        let wholePackage = await apiWordPinger(source, target, wordPackage.word);
-        if (wholePackage !== undefined) {
-            res.send(wholePackage);
-        } else {
-            console.log('looking for a word...');
-        }
-        return
+          let wholePackage = await apiWordPinger(source, target, wordPackage.word);
+          if (wholePackage.word !== undefined && wholePackage.translations.length !== 0 && wholePackage.sentences.length !== 0 && wholePackage.translatedSentences.length !== 0) {
+              console.log('wholePackage: ', wholePackage);
+              res.send(wholePackage);
+              wasSuccessful = true
+              break
+          } 
         } else {
             console.log('no word matched');
         }
-        });
-    } catch (error) {
-    console.log('error', error);
+      } catch (error) {
+        console.log('error', error);
+      }     
     }
   } else {
     try {
-      wordsArray.map(async (wrd) => {
-        let wordPackage = await apiWordPinger(source, target, wrd);
-        if (wordPackage !== undefined) {
-          res.send(wordPackage);
-          return
-        } else {
-          console.log('no word matched');
+      for (const wrd of wordsArray) {
+        let wholePackage = await apiWordPinger(source, target, wrd);
+        if (wholePackage.word !== undefined && wholePackage.translations.length !== 0 && wholePackage.sentences.length !== 0 && wholePackage.translatedSentences.length !== 0) {
+          res.send(wholePackage);
+          wasSuccessful = true
+          break
         }
-        });
+      };
     } catch (error) {
       console.log('error', error);
     }
   }
 
-  return
+  if (!wasSuccessful) {
+    res.status(404).send('no match');
+  }
 };
 
 express()

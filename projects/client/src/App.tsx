@@ -22,6 +22,8 @@ function App() {
   const [input, setInput] = useState<string | null | undefined>();
   const [urlGuess, setUrlGuess] = useState<object | null | undefined> ({});
   const [switchMe, setSwitchMe] = useState<boolean | null | undefined>(false);
+  const [noMatch, setNoMatch] = useState<boolean | null | undefined>(false)
+  const [tryAgain, setTryAgain] = useState<boolean | null | undefined>(false)
   const settingsButtonRef = useRef<HTMLButtonElement>(null);
   const dispatch = useDispatch();
 
@@ -42,15 +44,22 @@ function App() {
   
   const sendBack = async() => {
     const api_url = `/${source}/${target}`;
-    const response = await fetch(api_url);
-    const data = await response.json();
-
-    setWord(data.word);
-    setTranslations(data.translations);
-    setSentences(data.sentences);
-    setTranslatedSentences(data.translatedSentences);
-    setBlur(false);
-    setCounter(counter + 1);
+    try {
+      const response = await fetch(api_url);
+      if (response.status < 300) {
+        const data = await response.json();
+        setWord(data.word);
+        setTranslations(data.translations);
+        setSentences(data.sentences);
+        setTranslatedSentences(data.translatedSentences);
+        setBlur(false);
+        setCounter(counter + 1);
+      } else {
+        setNoMatch(true);
+      }
+    } catch (error) {
+      console.log('error: ', error);
+    }
   }
 
   const testUser = (choice) => {
@@ -118,6 +127,11 @@ function App() {
     }
   }
 
+  const reload = () => {
+    sendBack();
+    setNoMatch(false);
+  }
+
   return (
     <div className="App">
       {!toggle ? null :
@@ -131,6 +145,11 @@ function App() {
         <span></span>
         <span></span>
         <span></span>
+      </div>
+      }
+      {!noMatch ? null : 
+      <div className='centreme'>
+        <button className='reload' onClick={reload}>Reload</button>
       </div>
       }
       <TextField word={word} translations={translations} sentences={sentences} translatedSentences={translatedSentences} />

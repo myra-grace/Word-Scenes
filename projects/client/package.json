@@ -4,10 +4,12 @@
   "private": true,
   "proxy": "http://localhost:4000",
   "dependencies": {
+    "@types/react-helmet": "^6.0.0",
     "@types/styled-components": "^5.1.1",
     "axios": "^0.19.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-helmet": "^6.1.0",
     "react-redux": "^7.2.0",
     "react-scripts": "3.4.1",
     "redux": "^4.0.5",
