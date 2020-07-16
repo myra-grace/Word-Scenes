@@ -135,11 +135,8 @@ function App() {
   return (
     <div className="App">
       {!toggle ? null :
-      <div className="blurdiv2">
         <Menu />
-      </div>
       }
-      <title>{word}</title>
       {!blur ? null :
       <div className="blurDivOne">
         <span></span>
@@ -149,7 +146,7 @@ function App() {
       }
       {!noMatch ? null : 
       <div className='centreme'>
-        <button className='reload' onClick={reload}>Reload</button>
+        <button className='reload' onClick={reload}><h1>Reload</h1></button>
       </div>
       }
       <TextField word={word} translations={translations} sentences={sentences} translatedSentences={translatedSentences} />

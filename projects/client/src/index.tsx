@@ -9,6 +9,7 @@ import configureStore from './store';
 
 const store = configureStore();
 
+
 ReactDOM.render(
   <Provider store={store}>
     <Helmet><title>Word Scenes</title></Helmet>

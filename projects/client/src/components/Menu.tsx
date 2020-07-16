@@ -22,7 +22,7 @@ const Menu = () => {
     }
     
     return (
-        <div className="blurDivTwo">
+        <div className="blurdiv2">
             <div className="settingsMenu">
                 <h1>MENU</h1>
                 <h2>{source} ➡ {target}</h2>
