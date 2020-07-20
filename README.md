@@ -18,14 +18,16 @@ Before you begin, ensure you have the following:
 * NodeJS from https://nodejs.org/en/download/
 
 ## Getting Started
-To install Word Scenes, follow these steps:
-1. <cd_projects>
-2. <cd_client>
-3. <npm_install>
-4. <npm_install_redux>
-5. <npm_install_react-redux>
-
-After following these steps run <npm_start>
+To install Word Scenes, open your terminal and run these commands:
+1. cd projects
+2. cd client 
+3. npm i -D @types/react
+4. npm i react @types/react-dom
+5. npm install
+6. npm i @types/redux
+7. npm i @types/react-redux
+8. yarn install
+9. yarn start
 
 ![til](./assets/gaspiller.png)
 
