@@ -4,8 +4,8 @@ import { sourceSelection, targetSelection } from '../actions';
 
 
 const Menu = () => {
-    const source = useSelector(state => state.generalReducer.source);
-    const target = useSelector(state => state.generalReducer.target);
+    const source = useSelector((state: any) => state.generalReducer.source);
+    const target = useSelector((state: any) => state.generalReducer.target);
     const dispatch = useDispatch();
 
 //SEND source AND target TO BACKEND

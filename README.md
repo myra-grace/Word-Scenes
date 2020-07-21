@@ -22,15 +22,14 @@ Before you begin, ensure you have the following:
 To install Word Scenes, open your terminal and run these commands:
 1. cd projects
 2. cd client 
-3. npm i -D @types/react
-4. npm i react @types/react-dom
-5. npm install
-6. npm i @types/redux
-7. npm i @types/react-redux
-8. yarn install
-9. cd ..
-10. cd ..
-11. yarn start
+3. npm install
+4. cd ..
+5. cd ..
+6. cd backend
+7. npm install
+8. cd ..
+9. npm install
+10. npm run start
 
 ![til](./assets/gaspiller.png)
 

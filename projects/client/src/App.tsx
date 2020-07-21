@@ -28,10 +28,10 @@ function App() {
   const dispatch = useDispatch();
 
 
-  const source = useSelector(state => state.generalReducer.source);
-  const target = useSelector(state => state.generalReducer.target);
-  const illustrations = useSelector(state => state.generalReducer.illustrations);
-  const submitted = useSelector(state => state.generalReducer.submitions);
+  const source = useSelector((state: any) => state.generalReducer.source);
+  const target = useSelector((state: any) => state.generalReducer.target);
+  const illustrations = useSelector((state: any) => state.generalReducer.illustrations);
+  const submitted = useSelector((state: any) => state.generalReducer.submitions);
 
   let finalWidth = 0;
   let windowW = window.innerWidth - 50;
