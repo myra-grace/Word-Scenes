@@ -18,7 +18,7 @@
     "@types/request-promise": "^4.1.46"
   },
   "scripts": {
-    "clean": "find src -name \"*.js*\" -type f -delete",
+    "clean": "find \"src\" \"-name\" \"*.js*\" \"-type\" \"f\" \"-delete\"",
     "start": "tsc-watch --onSuccess \"node src/server.js\""
   }
 }

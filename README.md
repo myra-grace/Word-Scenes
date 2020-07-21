@@ -16,6 +16,7 @@ Before you begin, ensure you have the following:
 * Internet connection
 * A code editor like Visual Studio Code
 * NodeJS from https://nodejs.org/en/download/
+* Make sure you're not using CMD or PowerShell to run terminal commands.
 
 ## Getting Started
 To install Word Scenes, open your terminal and run these commands:
