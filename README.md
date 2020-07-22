@@ -24,9 +24,9 @@ To install Word Scenes, open your terminal and run these commands:
 2. cd client 
 3. npm install
 4. cd ..
-5. cd ..
-6. cd backend
-7. npm install
+5. cd backend
+6. npm install
+7. cd ..
 8. cd ..
 9. npm install
 10. npm run start
