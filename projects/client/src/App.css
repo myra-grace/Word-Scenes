@@ -293,6 +293,7 @@ h3 {
 .languageSelections {
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 
 .settingsMenu, .languageSelectionsFrom, .languageSelectionsTo {
@@ -328,7 +329,7 @@ h3 {
   display: none;
 }
 
-.clearButton, .doneButton, .reload {
+.clearButton, .doneButton, .reload, .ok {
   cursor: pointer;
   width: 40%;
   height: auto;

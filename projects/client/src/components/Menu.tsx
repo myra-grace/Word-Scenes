@@ -1,24 +1,34 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { sourceSelection, targetSelection } from '../actions';
 
 
 const Menu = () => {
-    const source = useSelector((state: any) => state.generalReducer.source);
-    const target = useSelector((state: any) => state.generalReducer.target);
+    const src = useSelector((state: any) => state.generalReducer.source);
+    const tar = useSelector((state: any) => state.generalReducer.target);
+    const [source, setSource] = useState<string | null | undefined>(src);
+    const [target, setTarget] = useState<string | null | undefined>(tar);
+
+
     const dispatch = useDispatch();
 
 //SEND source AND target TO BACKEND
     const handleSourceSelector = (event) => {
         event.preventDefault();
         const input = event.target.value;
-        dispatch(sourceSelection(input));
+        setSource(input)
     }
 
     const handleTargetSelector = (event) => {
         event.preventDefault();
         const input = event.target.value;
-        dispatch(targetSelection(input));
+        setTarget(input)
+    }
+
+    const handleSend = (event) => {
+        event.preventDefault();
+        dispatch(sourceSelection(source));
+        dispatch(targetSelection(target));
     }
     
     return (
@@ -43,6 +53,7 @@ const Menu = () => {
                         <option value="ru">Russian</option>
                         <option value="es">Spanish</option>
                     </select>
+                    <button className="ok" onClick={handleSend}>OK</button>
                 </form>
 
             </div>

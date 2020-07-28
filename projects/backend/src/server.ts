@@ -13,7 +13,7 @@ const apiRandomWordPinger = async ():Promise<string[]> => {
 
   let options = {
     method: "GET",
-    url: "https://random-word-api.herokuapp.com/word?number=10",
+    url: "https://random-word-api.herokuapp.com/word?number=15",
   };
 
   await rp(options, function (error, response, body) {
@@ -26,6 +26,7 @@ const apiRandomWordPinger = async ():Promise<string[]> => {
 };
 
 const apiWordPinger = async (source: string, target: string, input: string) => {
+  console.log('source: ', source, 'target: ', target, 'word: ', input);
     let word = '';
     let translations = [];
     let sentences = [];
@@ -74,27 +75,25 @@ const apiWordPinger = async (source: string, target: string, input: string) => {
 const sourceTargetCleaner = async (req, res) => {
   let wasSuccessful = false
   let wordsArray:string[] = await apiRandomWordPinger();
-  console.log('*********', wordsArray);
+  console.log('wordsArray', wordsArray);
   
   let source = req.params.source;
   let target = req.params.target;
 
-  console.log('wordsArray: ', typeof wordsArray);
-
   if (source !== 'en') {
     for (const wrd of wordsArray) {
+      console.log('wrd: ', wrd);
       try {
         let wordPackage = await apiWordPinger('en', source, wrd);
         if (wordPackage !== undefined) {
           let wholePackage = await apiWordPinger(source, target, wordPackage.word);
-          if (wholePackage.word !== undefined && wholePackage.translations.length !== 0 && wholePackage.sentences.length !== 0 && wholePackage.translatedSentences.length !== 0) {
-              console.log('wholePackage: ', wholePackage);
+          if (wholePackage !== undefined && wholePackage.word !== undefined && wholePackage.translations.length !== 0 && wholePackage.sentences.length !== 0 && wholePackage.translatedSentences.length !== 0) {
               res.send(wholePackage);
               wasSuccessful = true
               break
           } 
         } else {
-          console.log('no word matched');
+          console.log("no match");
         }
       } catch (error) {
         console.log('error', error);
@@ -103,11 +102,16 @@ const sourceTargetCleaner = async (req, res) => {
   } else {
     try {
       for (const wrd of wordsArray) {
+        console.log('wrd: ', wrd);
         let wholePackage = await apiWordPinger(source, target, wrd);
-        if (wholePackage.word !== undefined && wholePackage.translations.length !== 0 && wholePackage.sentences.length !== 0 && wholePackage.translatedSentences.length !== 0) {
+        console.log('wholePackage11111: ', wholePackage);
+        if (wholePackage !== undefined && wholePackage.word !== undefined && wholePackage.translations.length !== 0 && wholePackage.sentences.length !== 0 && wholePackage.translatedSentences.length !== 0) {
+          console.log('wholePackage: ', wholePackage);
           res.send(wholePackage);
           wasSuccessful = true
           break
+        } else {
+          console.log("no match");
         }
       };
     } catch (error) {
