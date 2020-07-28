@@ -8,28 +8,18 @@ Let's say you want to build your French vocabulary and you are a native English 
 The point is to draw a scene related to that word or sentence then submit it. 
 Every once in a while, the app will throw the illustration back to you asking what word was associated with it.
 
-## Demo
-
-
 ## Prerequisites
 Before you begin, ensure you have the following:
 * Internet connection
 * A code editor like Visual Studio Code
 * NodeJS from https://nodejs.org/en/download/
+* Make sure you have yarn installed.
 * Make sure you're not using CMD or PowerShell to run terminal commands.
 
 ## Getting Started
-To install Word Scenes, open your terminal and run these commands:
-1. cd projects
-2. cd client 
-3. npm install
-4. cd ..
-5. cd ..
-6. cd backend
-7. npm install
-8. cd ..
-9. npm install
-10. npm run start
+To install Word Scenes, open your terminal in the WORD-SCENES folder and run these commands:
+1. yarn
+2. yarn start
 
 ![til](./assets/gaspiller.png)
 
