@@ -26,7 +26,6 @@ const apiRandomWordPinger = async ():Promise<string[]> => {
 };
 
 const apiWordPinger = async (source: string, target: string, input: string) => {
-  console.log('source: ', source, 'target: ', target, 'word: ', input);
     let word = '';
     let translations = [];
     let sentences = [];
@@ -75,14 +74,12 @@ const apiWordPinger = async (source: string, target: string, input: string) => {
 const sourceTargetCleaner = async (req, res) => {
   let wasSuccessful = false
   let wordsArray:string[] = await apiRandomWordPinger();
-  console.log('wordsArray', wordsArray);
   
   let source = req.params.source;
   let target = req.params.target;
 
   if (source !== 'en') {
     for (const wrd of wordsArray) {
-      console.log('wrd: ', wrd);
       try {
         let wordPackage = await apiWordPinger('en', source, wrd);
         if (wordPackage !== undefined) {
@@ -102,11 +99,8 @@ const sourceTargetCleaner = async (req, res) => {
   } else {
     try {
       for (const wrd of wordsArray) {
-        console.log('wrd: ', wrd);
         let wholePackage = await apiWordPinger(source, target, wrd);
-        console.log('wholePackage11111: ', wholePackage);
         if (wholePackage !== undefined && wholePackage.word !== undefined && wholePackage.translations.length !== 0 && wholePackage.sentences.length !== 0 && wholePackage.translatedSentences.length !== 0) {
-          console.log('wholePackage: ', wholePackage);
           res.send(wholePackage);
           wasSuccessful = true
           break
